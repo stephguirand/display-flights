@@ -16,6 +16,13 @@ const [data, setData] = useState('');
 
 
 
+// let firstFormat = date.replace('-','/')
+  // let formattedDate = firstFormat.replace('-','/')
+  // let secondFormat = formattedDate.split('').reverse('').join
+
+  //  console.log(date, formattedDate);
+  // console.log(date, formattedDate, secondFormat)
+
 const onChangeOrigin = value => {
   console.log(`selected ${value}`);
   setOriginCode(value)
@@ -31,6 +38,8 @@ const onChangeDate = (date, dateString) => {
   setDate(dateString)  
 }
 
+const dateTwo = new Date(date)
+console.log(dateTwo.toDateString())
 
 
 const onSearch = () => {
@@ -40,12 +49,7 @@ const onSearch = () => {
   }
 
   console.log(date)
-  // let firstFormat = date.replace('-','/')
-  // let formattedDate = firstFormat.replace('-','/')
-  // let secondFormat = formattedDate.split('').reverse('').join
-
-   //console.log(date, formattedDate);
-  // console.log(date, formattedDate, secondFormat)
+  
 
 
   fetch(
@@ -71,7 +75,6 @@ const style = {
   display: 'inline-block',
   padding: '15px',
   margin: '16px',
-  // border: '1px solid black',
   textAlign: 'left',
   resultBox: {
     border: '1px solid rgb(100, 155, 237)', 
@@ -83,6 +86,10 @@ const style = {
   },
   h2: { color: 'lightcoral'
 
+  },
+  
+  h4: { fontWeight: 'bold'
+
   }
 
 }
@@ -91,12 +98,12 @@ const style = {
   return (
     <div style={style}>
       <div>
-        <h1> Search Flights ✈️</h1>
+        <h1> Search Flights ✈️ </h1>
         <p>Origin Airport Code(optional)</p>
         <Select
     showSearch
     style={{ width: 200 }}
-   //placeholder="Select a person"
+    placeholder="Select a person"
     optionFilterProp="children"
     onChange={onChangeOrigin}
     // onFocus={onFocus}
@@ -157,30 +164,22 @@ const style = {
       </div>
       <hr/>
       <br/>
-      <h1>Search Results: {data.length}</h1>
+      <h1> {data.length ?  'Search Results: ' + data.length : ' '} </h1>
       {/* {JSON.stringify(data)} */}
-      {/* {data.length > 0 && (
-        <div style={style.resultBox}>
-          <h1>Search Results</h1>
-        <h2>flightNumber = {data[0].flightNumber}</h2>
-      data.length > 0 && 
-        <h2>distance = {data[0].distance}</h2>
-      </div>
-      )} */}
 
-        {/* originData = {data.origin.code} */}
       {data.length > 0 && data.map((data) => (
-        <ol>
-        <div style={style.resultBox}>
-        
+        <ol key={data.flightNumber}>
+        <div style={style.resultBox} >
         <h2 style={style.h2} >Flight #: {data.flightNumber}</h2>
-        <h3>Date = {date}</h3>
-        <h4>Origin: {setOriginCode} </h4>  
-        {/* {data.origin.code.city} */}
-        <h4>Destination:</h4>
-        <h4>Duration:</h4>
-        <h4>Distance: {data.distance} miles</h4>
-      {/* data.length > 0 &&  */}
+        <h3 style={style.h3}> {dateTwo.toDateString()}</h3>
+        <span style={style.h4}>Departure: </span> {data.origin.city} ({data.origin.code})   
+         {console.log(data.origin.code)}
+         <br/>
+        <span style={style.h4}>Arrival: </span>  {data.destination.city} ({data.destination.code})
+        <br/>
+        <span style={style.h4}>Duration: </span> {data.duration.locale}
+        <br/>
+        <span style={style.h4}>Distance: </span> {data.distance} miles
       </div>
       </ol>
       ))}

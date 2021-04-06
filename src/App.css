@@ -1,11 +1,11 @@
-body {
+/* body {
   background-color: rgb(100, 155, 237);
-}
+} */
 
 .App {
   text-align: center; 
   background-color: rgb(100, 155, 237);
-  margin: 5px;
+  /* margin: 5px; */
   /* margin-left: 5px; */
   /* color: lightcoral; */
   
